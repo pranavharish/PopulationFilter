@@ -15,28 +15,16 @@ code {
 .form-inline {
   margin: 10px;
 }
+
  td {
   text-align: center;
 }
 
- th {
+.table th {
   text-align: center;
-}
-
-.table {
   margin: auto;
 }
 
-
-
-/*body {*/
-/*  background: url('background.jpg') no-repeat center center fixed;*/
-/*  opacity: 4;*/
-/*  -webkit-background-size: cover;*/
-/*  -moz-background-size: cover;*/
-/*  background-size: cover;*/
-/*  -o-background-size: cover;*/
-/*}*/
 label {
   clear:left;
   text-align:right;

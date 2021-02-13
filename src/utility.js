@@ -1,33 +1,44 @@
 class Utility{
 
-    static quicksort(population_list) {
-        if (population_list.length <= 1) {
-            return population_list;
+    /**
+     * This function sorts the list of countries using QuickSort based on their population
+     * @param populationList The list of all countries. It should contain a population attribute
+     * @returns A sorted list of the given populationList
+     */
+    static quickSort(populationList) {
+        if (populationList.length <= 1) {
+            return populationList;
         }
-        let pivot = population_list[0];
+        let pivot = populationList[0];
         let left = [];
         let right = [];
-        for (let i = 1; i < population_list.length; i++) {
-            population_list[i].population < pivot.population ? left.push(population_list[i]) : right.push(population_list[i]);
+        for (let i = 1; i < populationList.length; i++) {
+            populationList[i].population < pivot.population ? left.push(populationList[i]) : right.push(populationList[i]);
         }
-        return this.quicksort(left).concat(pivot, this.quicksort(right));
+        return this.quickSort(left).concat(pivot, this.quickSort(right));
     };
 
-    static filter_results(all_countries,population_limit){
+    /**
+     * Function to filter the sorted country list based on binary search
+     * @param allCountries Array of all countries sorted based on population
+     * @param populationLimit Limit based of which we want to filter the list
+     * @returns An array of the filtered list based of the populationLimit
+     */
+    static filterResults(allCountries, populationLimit){
         let start = 0;
         let mid;
-        let end = all_countries.length - 1
-        if (population_limit == 0){
-            return all_countries
+        let end = allCountries.length - 1
+        if (populationLimit === 0){
+            return allCountries
         }
         while(start<=end){
             mid = Math.floor((start + end)/2)
-            if (all_countries[mid].population <= population_limit &&
-                all_countries[mid + 1].population > population_limit){
-                return all_countries.slice(mid + 1,all_countries.length)
+            if (allCountries[mid].population <= populationLimit &&
+                allCountries[mid + 1].population > populationLimit){
+                return allCountries.slice(mid + 1,allCountries.length)
             }
-            else if(all_countries[mid].population <= population_limit &&
-                all_countries[mid + 1].population <= population_limit){
+            else if(allCountries[mid].population <= populationLimit &&
+                allCountries[mid + 1].population <= populationLimit){
                 start = mid + 1
             }
             else{

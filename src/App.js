@@ -9,65 +9,92 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            population_limit: 0,
-            country_list: [],
-            filtered_list: []
+            //handles the input of the user and filters accordingly
+            populationLimit: 0,
+            //list of all the countries
+            countryList: [],
+            //list of filtered countries
+            filteredList: []
         };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    /**
+     *This function is executed after all page elements are loaded without any problem
+     * It retrieves all the countries and their populations for restcountries.eu and stores it in countryList
+     */
     componentDidMount() {
-        // Simple GET request using fetch
+        // Simple GET request using fetch to get the list of countries along with their population
         fetch('https://restcountries.eu/rest/v2/all?fields=name;population')
             .then(response => response.json())
             .then(data => {
-                data = Utility.quicksort(data)
-                this.setState({country_list: data})
-                this.setState({filtered_list: data})
-            })
+                console.log(data)
+                data = Utility.quickSort(data)
+                console.log(data)
+                this.setState({countryList: data})
+                this.setState({filteredList: data})
+            }).catch(function (error) {
+            // handle error
+            console.log(error)
+            alert("There has been an error while trying to reach restcountries.eu");
+        })
 
     }
 
+    /**
+     * This function handles what is to be done when the user types a value in the input box
+     * @param event
+     */
     handleChange(event) {
-        this.setState({population_limit: event.target.value});
+        this.setState({populationLimit: event.target.value});
     }
 
+    /**
+     * This function handles what is to be done when the user hits the submit button
+     * @param event
+     */
     handleSubmit(event) {
         this.setState({
-            filtered_list: Utility
-                .filter_results(this.state.country_list, this.state.population_limit)
+            // Call the Utility.filterResults function in utility.js that filters the country list based on a
+            // population limit
+            filteredList: Utility
+                .filterResults(this.state.countryList, this.state.populationLimit)
         })
         event.preventDefault();
     }
 
-    renderFilteredList(filtered_list) {
+    /**
+     * This is a helper function that renders the result in a tabular format
+     * @param filteredList The list of filteres countries as an Array
+     * @returns {JSX.Element}
+     */
+    renderFilteredList(filteredList) {
         return (
-            <tr class key={filtered_list.name}>
-                <td>{filtered_list.name}</td>
-                <td>{filtered_list.population}</td>
+            <tr key={filteredList.name}>
+                <td>{filteredList.name}</td>
+                <td>{filteredList.population}</td>
             </tr>
         )
     }
 
 
     render() {
-        const {filtered_list} = this.state
+        const {filteredList} = this.state
         return (
             <Container fluid>
                 <div id="heading">
                     <h1 className="text-center">
-                        <Badge pill variant="primary">World Population Lister </Badge><br/><br/><br/>
+                        <Badge pill variant="primary">World Population Finder </Badge><br/><br/><br/>
                     </h1>
                 </div>
                 <div id="userform">
                     <form className="form-inline justify-content-center text-center" onSubmit={this.handleSubmit}>
                         <label><h4>Population more than: </h4></label>
-                        <input type="Number" id="population_limit" value={this.state.population_limit}
+                        <input type="Number" id="populationLimit" value={this.state.populationLimit}
                                onChange={this.handleChange}
                                className="form-control"/>
-                        <input type="submit" id= "submit_button" value="Submit" className="btn btn-primary"/>
+                        <input type="submit" id= "submitButton" value="Submit" className="btn btn-primary"/>
                     </form>
                 </div>
                 <br/>
@@ -81,7 +108,7 @@ class App extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {filtered_list.map(this.renderFilteredList)}
+                        {filteredList.map(this.renderFilteredList)}
                         </tbody>
                     </Table>
 
