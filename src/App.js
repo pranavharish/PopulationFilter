@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
 import Badge from 'react-bootstrap/Badge';
 import Utility from "./utility"
 import Table from 'react-bootstrap/Table'
@@ -29,9 +28,8 @@ class App extends Component {
         fetch('https://restcountries.eu/rest/v2/all?fields=name;population')
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 data = Utility.quickSort(data)
-                console.log(data)
+
                 this.setState({countryList: data})
                 this.setState({filteredList: data})
             }).catch(function (error) {
