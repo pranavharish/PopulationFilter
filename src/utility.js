@@ -31,6 +31,9 @@ class Utility{
         if (populationLimit === 0){
             return allCountries
         }
+        if (populationLimit < 0){
+            return allCountries
+        }
         while(start<=end){
             mid = Math.floor((start + end)/2)
             if (allCountries[mid].population <= populationLimit &&
