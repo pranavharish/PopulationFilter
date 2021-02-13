@@ -62,22 +62,18 @@ class App extends Component {
                     </h1>
                 </div>
                 <div id="userform">
-                    <Row>
-                            <form className="form-inline justify-content-center text-center">
-                                <label><h4>Population more than: </h4></label>
-                                <input type="Number" id="population_limit" value={this.state.population_limit}
-                                       onChange={this.handleChange}
-                                       className="form-control"/>
-                            </form>
-                            <form className="form-inline" onSubmit={this.handleSubmit}>
-                                <input type="submit" value="Submit" className="btn btn-primary"/>
-                            </form>
-                    </Row>
+                    <form className="form-inline justify-content-center text-center" onSubmit={this.handleSubmit}>
+                        <label><h4>Population more than: </h4></label>
+                        <input type="Number" id="population_limit" value={this.state.population_limit}
+                               onChange={this.handleChange}
+                               className="form-control"/>
+                        <input type="submit" id= "submit_button" value="Submit" className="btn btn-primary"/>
+                    </form>
                 </div>
                 <br/>
                 <br/>
                 <div id="results" className="table-responsive">
-                    <Table className ='table table-bordered table-striped text-center"'>
+                    <Table className='table table-bordered table-striped text-center"'>
                         <thead>
                         <tr>
                             <th>Country</th>

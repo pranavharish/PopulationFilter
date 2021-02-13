@@ -15,17 +15,19 @@ code {
 .form-inline {
   margin: 10px;
 }
-.table td {
+ td {
   text-align: center;
 }
 
-.table th {
+ th {
   text-align: center;
 }
 
 .table {
   margin: auto;
 }
+
+
 
 /*body {*/
 /*  background: url('background.jpg') no-repeat center center fixed;*/
